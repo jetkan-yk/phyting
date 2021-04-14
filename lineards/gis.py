@@ -1,4 +1,7 @@
 # Kattis - greedilyincreasing
+'''
+    print() an array with *
+'''
 import sys
 
 if __name__ == "__main__":

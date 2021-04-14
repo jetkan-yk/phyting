@@ -1,4 +1,7 @@
 # Kattis - mastermind
+'''
+    Use of collections.Counter()
+'''
 import sys
 from collections import Counter
 

@@ -1,4 +1,7 @@
 # Kattis - downtime
+'''
+    Find maximum number of overlapping intervals in O(n) time
+'''
 import sys
 import math
 

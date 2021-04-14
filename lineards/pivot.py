@@ -1,11 +1,14 @@
 # Kattis - pivot
+'''
+    Classic static range min/max query problem
+'''
 import sys
 
 if __name__ == "__main__":
     n = int(input())
     arr = list(map(int, sys.stdin.readline().split()))
-    left_max = [None]*n
-    right_min = [None]*n
+    left_max = [None] * n
+    right_min = [None] * n
 
     for i in range(n):
         if i == 0:
