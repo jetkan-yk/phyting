@@ -1,3 +1,4 @@
+# Kattis - downtime
 import sys
 import math
 
