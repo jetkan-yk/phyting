@@ -6,9 +6,8 @@ import sys
 from bisect import insort
 from statistics import median
 
-if __name__ == "__main__":
-    arr = []
+arr = []
 
-    for n in sys.stdin.readlines():
-        insort(arr, int(n))
-        print(int(median(arr)))
+for n in sys.stdin.readlines():
+    insort(arr, int(n))
+    print(int(median(arr)))
