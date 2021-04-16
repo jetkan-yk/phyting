@@ -1,5 +1,7 @@
 # Kattis - Bungee Builder
 '''
+O(N) Sliding window solution pseudocode
+
 Create 2 pointers h1, h2
 Iterate h1 := 0 -> n-1:
     Iterate h2 := h1 + 1 -> n-1:
