@@ -2,7 +2,7 @@
 '''
     Classic N-Queens Problem
     Recursive backtracking Complete Search with Pruning and Bit Manipulation
-    Sub O(n!) solution
+    Sub O(N!) solution
 '''
 import sys
 
