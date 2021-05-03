@@ -25,7 +25,7 @@ def is_valid(top, bottom):
 inputs = map(int, sys.stdin.read().splitlines())
 outputs = []
 
-for (i, N) in enumerate(inputs):
+for N in inputs:
     if N == 0:
         break
 
