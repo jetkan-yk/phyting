@@ -232,7 +232,6 @@ class CiphertextMessage(Message):
         for shift in range(26):
             shifted_message = Message(self.message_text).apply_shift(shift).split(" ")
             score = sum(is_word(self.valid_words, word) for word in shifted_message)
-            print(shifted_message, score)
             if score > best_score:
                 best_score = score
                 best_shift = shift
