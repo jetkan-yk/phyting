@@ -16,6 +16,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.exe
+*.out
 
 # C extensions
 *.so
