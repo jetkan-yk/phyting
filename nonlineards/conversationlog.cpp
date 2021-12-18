@@ -3,14 +3,13 @@ using namespace std;
 
 #define fi first
 #define se second
-#define MAXM 10004
 
 int m;
 string line, name;
 set<string> names;
 unordered_map<string, int> word_count;
 unordered_map<string, set<string>> word_to_names;
-vector<string> msg[MAXM];
+vector<string> msg;
 vector<pair<int, string>> common_words;
 
 int main() {
@@ -24,26 +23,25 @@ int main() {
         // Read the whole input line
         getline(cin, line);
 
-        // Split whole line by whitespace, store into msg[i]
+        // Clear previous msg first
+        msg.clear();
+        // Split whole line by whitespace, store into msg
         size_t pos = 0, next_pos;
         while ((next_pos = line.find(" ", pos)) != string::npos) {
-            msg[i].push_back(line.substr(pos, next_pos - pos));
+            msg.push_back(line.substr(pos, next_pos - pos));
             pos = next_pos + 1;
         }
-        msg[i].push_back(line.substr(pos, next_pos - pos));
-    }
+        msg.push_back(line.substr(pos, next_pos - pos));
 
-    // For each line of input
-    for (int i = 0; i < m; i++) {
-        name = msg[i][0];
+        name = msg[0];
         // Keep track of a set of unique names
         names.insert(name);
 
-        // For each word in the input
-        for (auto it = msg[i].begin() + 1; it != msg[i].end(); it++) {
+        // For each word in the msg
+        for (auto it = msg.begin() + 1; it != msg.end(); it++) {
             string word = *it;
 
-            // Map the word to a set of names
+            // Keep track of people who have used the word
             word_to_names[word].insert(name);
 
             // Update the word's count
@@ -57,9 +55,9 @@ int main() {
     // Find common words that are mentioned by every user
     for (auto it = word_to_names.begin(); it != word_to_names.end(); it++) {
         string word = it->fi;
-        int num_mentioned = it->se.size();
+        int mentions = it->se.size();
 
-        if (num_mentioned == names.size()) {
+        if (mentions == names.size()) {
             // Negate first value for descending order
             // Alternatively, you can define your own comparator
             common_words.push_back(make_pair(-word_count[word], word));
