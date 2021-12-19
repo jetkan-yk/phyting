@@ -13,7 +13,7 @@ bool cmp(sp a, sp b) {
 }
 
 int n, length, width, center, radius;
-vector<sp> sprinklers;
+vector<sp> sprinkler;
 
 int main() {
     // Fast I/O
@@ -31,40 +31,43 @@ int main() {
             // Find the inner square of the circle using Pythagoras Theorem
             double dx = sqrt(pow(radius, 2) - pow((width / 2.0), 2));
             // Leftmost & rightmost fully covered points of a sprinkler
-            sprinklers.push_back(sp{center - dx, center + dx});
+            sprinkler.push_back(sp{center - dx, center + dx});
         }
 
         // Sort sprinklers with ascending l, then descending r
-        sort(sprinklers.begin(), sprinklers.end(), cmp);
+        sort(sprinkler.begin(), sprinkler.end(), cmp);
 
         // Area covered (from left) so far
         double covered = 0.0;
         int ans = 0;
         bool possible = true;
         // Checking each sprinkler
-        for (auto i = sprinklers.begin(); i != sprinklers.end() && possible; i++) {
+        for (int i = 0; i < sprinkler.size() && possible; i++) {
             // Covered the whole grass strip
             if (covered >= length) break;
             // Discard sprinkler if its completely inside the covered area
-            else if (i->r < covered)
+            else if (sprinkler[i].r < covered)
                 continue;
             // There is a gap that is impossible to cover with any sprinkler
-            else if (i->l > covered)
+            else if (sprinkler[i].l > covered)
                 possible = false;
-            // Choose sprinkler that overlaps the "covered" point and has the largest coverage
+            // Given the currently "covered" point, look for sprinklers that overlaps "covered"
+            // and has the largest coverage
             else {
-                double max_right = i->r;
-                auto max_j = i;
-                // Check all sprinkler that overlaps the "covered" point
-                for (auto j = i; j != sprinklers.end() && j->l <= covered; j++)
+                // Initialize the current sprinkler as the best sprinkler
+                double max_right = sprinkler[i].r;
+                int max_i = i;
+                // Check all sprinklers that l <= covered
+                while (++i < sprinkler.size() && sprinkler[i].l <= covered)
                     // Found a sprinkler that has larger coverage
-                    if (j->r > max_right) {
-                        max_right = j->r;
-                        // Keep the max coverage sprinkler's iterator (id)
-                        max_j = j;
+                    if (sprinkler[i].r > max_right) {
+                        max_right = sprinkler[i].r;
+                        // Keep the max coverage sprinkler's index
+                        max_i = i;
                     }
+                // Set the area covered so far as the right point of the selected sprinkler
                 covered = max_right;
-                i = max_j;
+                i = max_i;
                 ans++;
             }
         }
@@ -76,6 +79,6 @@ int main() {
             cout << ans << "\n";
 
         // Clear container
-        sprinklers.clear();
+        sprinkler.clear();
     }
 }
