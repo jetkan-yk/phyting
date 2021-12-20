@@ -11,8 +11,6 @@ int C, n, value[MAXN], weight[MAXN], memo[MAXN][MAXW];
 int bag(int i, int w) {
     // Considered all items or bag is full
     if (i == n || w == C) return 0;
-    // Bag exceeded capacity limit
-    if (w > C) return -INF;
 
     // Previously computed state
     if (memo[i][w] != -1) return memo[i][w];
@@ -21,8 +19,9 @@ int bag(int i, int w) {
     int taking = bag(i + 1, w + weight[i]) + value[i];
     // Best value if we are not taking item i
     int not_taking = bag(i + 1, w);
-    // Consider either taking or not taking item i
-    return memo[i][w] = max(taking, not_taking);
+    // If adding item i exceeds bag capacity, we cannot take item i
+    // Otherwise, consider either taking or not taking item i
+    return memo[i][w] = (w + weight[i] > C) ? not_taking : max(taking, not_taking);
 }
 
 int main() {
