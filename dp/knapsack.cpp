@@ -21,9 +21,7 @@ int bag(int i, int w) {
     int taking = bag(i + 1, w + weight[i]) + value[i];
     // Best value if we are not taking item i
     int not_taking = bag(i + 1, w);
-
-    // If adding item i exceeds bag capacity, we cannot take item i
-    // Otherwise, consider either taking or not taking item i
+    // Consider either taking or not taking item i
     return memo[i][w] = max(taking, not_taking);
 }
 
