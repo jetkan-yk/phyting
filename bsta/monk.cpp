@@ -48,20 +48,15 @@ int main() {
     }
 
     // BSTA
-    double lo = 0, hi = MAXT, ans;
-    while (lo <= hi) {
-        double mid = hi - (hi - lo) / 2.0;
+    double lo = 0, hi = MAXT;
+    while (fabs(hi - lo) > EPS) {
+        double mid = (lo + hi) / 2.0;
         double asc_height = get_height(asc, a, mid);
         double dsc_height = total_h - get_height(dsc, d, mid);
 
-        if (fabs(asc_height - dsc_height) < EPS)
-            ans = mid;  // Possible answer
-        if (asc_height < dsc_height)
-            lo = mid + EPS;
-        else
-            hi = mid - EPS;
+        (asc_height < dsc_height) ? lo = mid : hi = mid;
     }
 
     // Output answer
-    printf("%.6f\n", ans);
+    printf("%.6f\n", hi);
 }
