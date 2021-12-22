@@ -1,52 +1,65 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define MAXN 2003
-#define MAXW 100005
-#define INF 2000000009
+typedef vector<int> vi;
+typedef vector<vi> vvi;
 
-int C, n, value[MAXN], weight[MAXN], memo[MAXN][MAXW];
+const int MAXN = 2003;
 
-// i is current item, w is the bag's current weight
-int bag(int i, int w) {
-    // Considered all items or bag is full
-    if (i == n || w == C) return 0;
-    // Bag exceeded capacity limit
-    if (w > C) return -INF;
+int C, n, value[MAXN], weight[MAXN];
+
+// Find the best value after considering item i with w allowed weight
+int top_down(int i, int w, vvi& memo) {
+    // state is a reference variable, any changes will be reflected on memo
+    int& state = memo[i][w];
+
+    // Base case: 0 item or no remaining weight
+    if (i == 0 || w == 0) return state = 0;
 
     // Previously computed state
-    if (memo[i][w] != -1) return memo[i][w];
+    if (state != -1) return state;
 
-    // Best value if we are taking item i
-    int taking = bag(i + 1, w + weight[i]) + value[i];
-    // Best value if we are not taking item i
-    int not_taking = bag(i + 1, w);
-    // Consider either taking or not taking item i
-    return memo[i][w] = max(taking, not_taking);
+    // If item is heavier than allowed weight in knapsack, don't take it
+    if (w < weight[i]) return state = top_down(i - 1, w, memo);
+    // Otherwise consider either taking or not taking the item
+    return state = max(top_down(i - 1, w - weight[i], memo) + value[i],
+                       top_down(i - 1, w, memo));
+}
+
+// Backtrack the memo to trace which items are selected
+void trace(int i, int w, const vvi& memo, vi& item) {
+    // Traced all items, job done
+    if (i == 0) return;
+
+    if (w < weight[i]) return trace(i - 1, w, memo, item);
+
+    int taking = memo[i - 1][w - weight[i]] + value[i];
+    int not_taking = memo[i - 1][w];
+    if (memo[i][w] == taking) {
+        item.push_back(i);
+        return trace(i - 1, w - weight[i], memo, item);
+    } else {
+        return trace(i - 1, w, memo, item);
+    }
 }
 
 int main() {
-    // Fast I/O
-    ios_base::sync_with_stdio(0);
-    cin.tie(NULL);
-
     while (cin >> C >> n) {
         // Read input
-        for (int i = 0; i < n; i++)
+        for (int i = 1; i <= n; i++)  // 1-indexed
             cin >> value[i] >> weight[i];
 
         // Reset memo
-        memset(memo, -1, sizeof memo);
-        vector<bool> pick(n, false);
+        vvi memo = vector<vi>(n + 1, vi(C + 1, -1));
+        vi item = vi();
 
         // Dynamic programming
-        cout << bag(0, 0) << endl;
+        top_down(n, C, memo);
+        trace(n, C, memo, item);
 
         // Output answer
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j <= C; j++)
-                cout << memo[i][j] << " ";
-            cout << endl;
-        }
+        cout << item.size() << endl;
+        for (int x : item) cout << x - 1 << " ";  // Change to 0-indexed
+        cout << endl;
     }
 }
