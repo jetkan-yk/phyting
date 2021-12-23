@@ -1,3 +1,6 @@
+/** 
+ * Greedy version using Priority Queue
+ **/
 #include <bits/stdc++.h>
 using namespace std;
 
