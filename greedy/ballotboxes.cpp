@@ -1,5 +1,5 @@
 /** 
- * Greedy version using Priority Queue
+ * Greedy version using Priority Queue, O(blogn)
  **/
 #include <bits/stdc++.h>
 using namespace std;
