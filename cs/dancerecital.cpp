@@ -37,12 +37,12 @@ int main() {
     int ans = MAXN * MAXS;
     for (int i = 0; i < n; i++) id[i] = i;
     // Permute using index number
-    while (next_permutation(id, id + n)) {
+    do {
         int cur = 0;
         for (int i = 0; i < n - 1; i++)
             cur += repeat[id[i]][id[i + 1]];
         ans = min(ans, cur);
-    }
+    } while (next_permutation(id, id + n));
 
     cout << ans << endl;
 }
