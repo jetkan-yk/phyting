@@ -6,6 +6,7 @@
 !*.py
 !*.pdf
 !*.png
+!*.js
 
 # Unignore all dirs
 !*/
