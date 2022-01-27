@@ -5,17 +5,22 @@
  *     this.next = (next===undefined ? null : next)
  * }
  */
-
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
 var reverse = function (head) {
-    let previous = null, current = head, following;
-    while(current) {
+    let previous = null,
+        current = head,
+        following;
+    while (current) {
         following = current.next;
         current.next = previous;
         previous = current;
         current = following;
     }
     return previous;
-}
+};
 
 /**
  * @param {ListNode} head
