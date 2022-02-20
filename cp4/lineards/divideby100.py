@@ -7,29 +7,25 @@ import sys
 
 def main():
     n, m = [row.strip() for row in sys.stdin.readlines()]
+    result = ""
 
     # Special case, just print n
     if m == "1":
-        print(n)
-        exit(0)
-
-    # Convert string into a list of string
-    result = [x for x in n]
-    if len(n) < len(m):
-        # Case 1: n is fraction
-        result = ["0."] + ["0"] * (len(m) - len(n) - 1) + result
+        result = n
     else:
+        # Case 1: n is fraction
+        if len(n) < len(m):
+            zeroes = "0" * (len(m) - len(n) - 1)
+            result = "0." + zeroes + n
         # Case 2: n is decimal
-        mid = len(n) - (len(m) - 1)
-        result = result[:mid] + ["."] + result[mid:]
+        else:
+            mid = len(n) - (len(m) - 1)
+            result = n[:mid] + "." + n[mid:]
 
-    # Remove trailing zeroes and decimal point
-    while result[-1] == "0":
-        result.pop()
-    if result[-1] == ".":
-        result.pop()
+        # Remove trailing zeroes and decimal point
+        result = result.rstrip("0").rstrip(".")
 
-    print("".join(result))
+    print(result)
 
 
 if __name__ == "__main__":
