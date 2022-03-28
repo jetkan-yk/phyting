@@ -5,6 +5,7 @@
 !*.c
 !*.cpp
 !*.py
+!*.ipynb
 !*.pdf
 !*.png
 !*.js
