@@ -2,6 +2,7 @@
 *
 
 # Unignore all with extensions
+!*.c
 !*.cpp
 !*.py
 !*.pdf
