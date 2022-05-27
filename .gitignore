@@ -9,6 +9,7 @@
 !*.pdf
 !*.png
 !*.js
+!*.pptx
 
 # Unignore all dirs
 !*/
