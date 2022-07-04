@@ -1,3 +1,7 @@
+"""
+Check 8-queens configuration validity
+"""
+
 import sys
 
 
